@@ -1,0 +1,86 @@
+import numpy as np
+import pandas as pd
+import datetime as dt
+import yfinance as yf
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+#%% Data
+years = 20
+EndDate = dt.datetime.now()
+StartDate = EndDate - dt.timedelta(days=365 * years)
+
+tickers = ['SPY', 'BND', 'GLD', 'QQQ', 'VTI']
+
+adj_close_df = pd.DataFrame()
+
+for ticker in tickers:
+    data = yf.download(ticker, start=StartDate, end=EndDate, auto_adjust=False)
+
+# Use Adj Close if available, otherwise fallback to Close
+    if 'Adj Close' in data.columns:
+        adj_close_df[ticker] = data['Adj Close']
+    else:
+        adj_close_df[ticker] = data['Close']
+#%% Compute daily log returns
+log_returns = np.log(adj_close_df / adj_close_df.shift(1))
+log_returns = log_returns.dropna()
+
+def expected_returns(weights, log_returns):
+    return np.sum(log_returns.mean() * weights)
+
+def sd(weights, cov_matrix):
+    variance = weights.T @ cov_matrix @ weights
+    return np.sqrt(variance)
+
+# Covariance matrix
+cov_matrix = log_returns.cov()
+
+portfolio_value = 100000
+weights = np.array([1 / len(tickers)] * len(tickers))
+
+portfolio_expected_returns = expected_returns(weights, log_returns)
+portfolio_sd = sd(weights, cov_matrix)
+
+def random_z_score():
+    return np.random.normal(0, 1)
+
+days = 5
+
+def scenario_gain_loss(portfolio_value, portfolio_expected_returns, portfolio_sd, z_score, days):
+    return (portfolio_value * portfolio_expected_returns * days
+        + portfolio_value * portfolio_sd * z_score * np.sqrt(days))
+
+#%% Monte Carlo Simulation
+simulations = 10000
+scenarioReturn = []
+
+for i in range(simulations):
+    z_score = random_z_score()
+    scenarioReturn.append(scenario_gain_loss(
+            portfolio_value,
+            portfolio_expected_returns,
+            portfolio_sd,
+            z_score,
+            days))
+
+CI = 0.95 # confidence level
+significance_level = 1 - CI
+
+VaR = -np.percentile(scenarioReturn, 100 * significance_level)
+
+print(f"{days}-day VaR at {CI:.0%} confidence level: ${VaR:,.2f}")
+
+#%% Plot
+plt.hist(scenarioReturn, bins=50, density=True)
+plt.xlabel('Scenario P&L ($)')
+plt.ylabel('Density')
+plt.title(f'Distribution of Portfolio P&L Over {days} Days')
+plt.axvline(
+    -VaR,
+    color='r',
+    linestyle='dashed',
+    linewidth=2,
+    label=f'VaR at {CI:.0%} confidence level')
+plt.legend()
+plt.show()
