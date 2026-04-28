@@ -73,14 +73,15 @@ print(f"{days}-day VaR at {CI:.0%} confidence level: ${VaR:,.2f}")
 
 #%% Plot
 plt.hist(scenarioReturn, bins=50, density=True)
-plt.xlabel('Scenario P&L ($)')
-plt.ylabel('Density')
-plt.title(f'Distribution of Portfolio P&L Over {days} Days')
+plt.xlabel('Scenario P&L ($)', fontsize = 14)
+plt.ylabel('Density', fontsize = 14)
+plt.title(f'Distribution of Portfolio P&L Over {days} Days', fontsize = 16)
 plt.axvline(
     -VaR,
     color='r',
     linestyle='dashed',
     linewidth=2,
     label=f'VaR at {CI:.0%} confidence level')
-plt.legend()
+plt.tick_params(axis='both', labelsize=14)
+plt.legend(fontsize = 14)
 plt.show()
