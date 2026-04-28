@@ -22,5 +22,5 @@ The model downloads historical price data, computes daily log returns and estima
 
 geometric Brownian motion in discrete time given by
 $$
-\frac{S_{t+dt}-S_t}{S_t}=(r+\sigma\lambda)dt+\sigma\sqrt{dt}\xi_t.
+\frac{S_{t+dt}-S_t}{S_t}=\mu dt+\sigma\sqrt{dt}\xi_t.
 $$
