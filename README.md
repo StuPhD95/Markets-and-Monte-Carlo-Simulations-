@@ -3,6 +3,7 @@
 
 
 **VaR_Monte_Carlo**
+
 This project implements a Monte Carlo Value-at-Risk (VaR) model for a simple equally weighted portfolio. The portfolio consists of five exchange-traded funds (ETFs) stored in the tickers list:
 - SPDR S&P 500 ETF Trust (SPY) 
 - Vanguard Total Bond Market ETF (BND)
