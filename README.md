@@ -1,4 +1,4 @@
-# Monte Carlo Simulations in Financial Models
+# Stochastic Modelling and Financial Models
 
 
 
@@ -25,3 +25,6 @@ This project geometric Brownian motion in discrete time given by
 $$\frac{S_{t+dt}-S_t}{S_t}=\mu dt+\sigma\sqrt{dt}\xi_t.$$
 
 Here, $\xi\sim N(0,1)$.
+
+
+![Geometric Brownian Motion](Figures/Portfolio_Value1.png)
