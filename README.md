@@ -18,3 +18,9 @@ The model downloads historical price data, computes daily log returns and estima
 ![Monte Carlo VaR histogram](Figures/VaR_99.png)
 
 
+**VaR_Monte_Carlo.py**
+
+geometric Brownian motion in continuous time given by
+$$
+\frac{dS_t}{S_t}=(r+\sigma\lambda)dt+\sigma dW_t.
+$$
