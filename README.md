@@ -21,6 +21,7 @@ The model downloads historical price data, computes daily log returns and estima
 **Stock_Market_Returns.py**
 
 geometric Brownian motion in discrete time given by
-$$
-\frac{S_{t+dt}-S_t}{S_t}=\mu dt+\sigma\sqrt{dt}\xi_t.
-$$
+
+$$\frac{S_{t+dt}-S_t}{S_t}=\mu dt+\sigma\sqrt{dt}\xi_t.$$
+
+Here, $\xi\sim N(0,1)$.
