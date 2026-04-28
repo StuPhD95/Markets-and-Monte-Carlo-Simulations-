@@ -4,7 +4,7 @@
 
 **VaR_Monte_Carlo.py**
 
-This project implements a Monte Carlo Value-at-Risk (VaR) model for a simple equally weighted portfolio. The portfolio consists of five exchange-traded funds (ETFs) stored in the tickers list:
+This file implements a Monte Carlo Value-at-Risk (VaR) model for a simple equally weighted portfolio. The portfolio consists of five exchange-traded funds (ETFs) stored in the tickers list:
 - SPDR S&P 500 ETF Trust (SPY), 
 - Vanguard Total Bond Market ETF (BND),
 - SPDR Gold Shares (GLD),
@@ -18,13 +18,12 @@ The model downloads historical price data, computes daily log returns and estima
 ![Monte Carlo VaR histogram](Figures/VaR_99.png)
 
 
-**Stock_Market_Returns.py**
+**Portfolio_Value_GBM.py**
 
-This project geometric Brownian motion in discrete time given by
+This file simulates possible future portfolio value paths using a geometric Brownian motion (GBM) in discrete time as described by the equation
 
 $$\frac{S_{t+dt}-S_t}{S_t}=\mu dt+\sigma\sqrt{dt}\xi_t.$$
 
-Here, $\xi\sim N(0,1)$.
-
+Here, $S_t$ is the portfolio value at time $t$, $\mu$ is the expected annual return, $\sigma$ is the annual volatility, $dt$ is the time step size (years) and $\xi\sim N(0,1)$. The model generates multiple random walk trajectories over a fixed investment horizon, allowing us to visualise how a portfolio with an initial value of $S_0=100$ may evolve under assumed annual drift and volatility parameters.
 
 ![Geometric Brownian Motion](Figures/Portfolio_Value1.png)
